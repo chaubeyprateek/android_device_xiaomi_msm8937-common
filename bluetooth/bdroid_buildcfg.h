@@ -17,7 +17,27 @@
 
 #ifndef _BDROID_BUILDCFG_H
 #define _BDROID_BUILDCFG_H
+#include <cutils/properties.h>
+#include <string.h>
 
+static inline const char* BtmGetDefaultName()
+{
+    char product_device[PROPERTY_VALUE_MAX];
+    property_get("ro.product.model", product_model, "");
+
+    if (strstr(product_model, "Redmi 3S"))
+        return "Xiaomi Redmi 3S";
+    if (strstr(product_model, "Redmi 3X"))
+        return "Xiaomi Redmi 3X";
+    if (strstr(product_model, "Redmi 4"))
+        return "Xiaomi Redmi 4";
+    if (strstr(product_model, "Redmi 4X"))
+        return "Xiaomi Redmi 4X";
+
+    return "";
+}
+
+#define BTM_DEF_LOCAL_NAME BtmGetDefaultName()
 #define BTA_SKIP_BLE_READ_REMOTE_FEAT FALSE
 #define MAX_ACL_CONNECTIONS    7
 #define MAX_L2CAP_CHANNELS    16
