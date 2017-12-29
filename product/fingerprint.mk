@@ -1,3 +1,4 @@
+ifneq ($(filter land santoni ,$(TARGET_DEVICE)),)
 # Fingerprint
 PRODUCT_PACKAGES += \
     fingerprintd
@@ -5,3 +6,4 @@ PRODUCT_PACKAGES += \
 # Permissions
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.fingerprint.xml:system/etc/permissions/android.hardware.fingerprint.xml
+endif
