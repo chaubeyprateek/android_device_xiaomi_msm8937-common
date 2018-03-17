@@ -18,9 +18,6 @@
 
 set -e
 
-DEVICE=land
-VENDOR=xiaomi
-
 INITIAL_COPYRIGHT_YEAR=2018
 
 # Load extract_utils and do some sanity checks
@@ -36,17 +33,29 @@ if [ ! -f "$HELPER" ]; then
 fi
 . "$HELPER"
 
-# Initialize the helper
-setup_vendor "$DEVICE" "$VENDOR" "$CM_ROOT"
+# Initialize the helper for common
+setup_vendor "$DEVICE_COMMON" "$VENDOR" "$CM_ROOT" true
 
 # Copyright headers and guards
-write_headers
+write_headers "land santoni"
 
-# Common QC blobs
-write_makefiles "$MY_DIR"/proprietary-files-qc.txt
-
-# Device blobs
+# The standard common blobs
 write_makefiles "$MY_DIR"/proprietary-files.txt
 
-# Finish
+# We are done!
 write_footers
+
+if [ -s "$MY_DIR"/../$DEVICE/proprietary-files.txt ]; then
+    # Reinitialize the helper for device
+    INITIAL_COPYRIGHT_YEAR="$DEVICE_BRINGUP_YEAR"
+    setup_vendor "$DEVICE" "$VENDOR" "$CM_ROOT" false
+
+    # Copyright headers and guards
+    write_headers
+
+    # The standard device blobs
+    write_makefiles "$MY_DIR"/../$DEVICE/proprietary-files.txt
+
+    # We are done!
+    write_footers
+fi
