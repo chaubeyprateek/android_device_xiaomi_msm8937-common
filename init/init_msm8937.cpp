@@ -35,7 +35,7 @@
 #include <string.h>
 #include <sys/sysinfo.h>
 
-#include <android-base/strings.h> 
+#include <android-base/strings.h>
 
 #include "vendor_init.h"
 #include "property_service.h"
@@ -114,9 +114,18 @@ void vendor_load_properties()
 {
     std::ifstream fin;
     std::string buf;
+    int is_land;
+    int is_santoni;
 
     std::string product = property_get("ro.product.name");
+
     if (product.find("land") == std::string::npos)
+        is_land == 0;
+
+    if (product.find("santoni") == std::string::npos)
+        is_santoni == 0;
+
+    if ((is_santoni == 0)&&(is_land == 0)
         return;
 
     fin.open("/proc/cmdline");
@@ -147,23 +156,33 @@ void vendor_load_properties()
     property_set("ro.hwui.text_large_cache_width", "2048");
     property_set("ro.hwui.text_large_cache_height", large_cache_height);
 
-    if (buf.find("S88537AA1") != std::string::npos) {
-        property_set("ro.build.display.wtid", "SW_S88537AA1_V080_M20_MP_XM");
-    } else if (buf.find("S88537AB1") != std::string::npos) {
-        property_set("ro.build.display.wtid", "SW_S88537AB1_V080_M20_MP_XM");
-    } else if (buf.find("S88537AC1") != std::string::npos) {
-        property_set("ro.build.display.wtid", "SW_S88537AC1_V080_M20_MP_XM");
-    } else if (buf.find("S88537BA1") != std::string::npos) {
-        property_set("ro.build.display.wtid", "SW_S88537BA1_V080_M20_MP_XM");
-    } else if (buf.find("S88537CA1") != std::string::npos) {
-        property_set("ro.build.display.wtid", "SW_S88537CA1_V080_M20_MP_XM");
-    } else if (buf.find("S88537EC1") != std::string::npos) {
-        property_set("ro.build.display.wtid", "SW_S88537EC1_V080_M20_MP_XM");
-    }
+    if (is_land == 1) {
+        if (buf.find("S88537AA1") != std::string::npos) {
+            property_set("ro.build.display.wtid", "SW_S88537AA1_V080_M20_MP_XM");
+        } else if (buf.find("S88537AB1") != std::string::npos) {
+            property_set("ro.build.display.wtid", "SW_S88537AB1_V080_M20_MP_XM");
+        } else if (buf.find("S88537AC1") != std::string::npos) {
+            property_set("ro.build.display.wtid", "SW_S88537AC1_V080_M20_MP_XM");
+        } else if (buf.find("S88537BA1") != std::string::npos) {
+            property_set("ro.build.display.wtid", "SW_S88537BA1_V080_M20_MP_XM");
+        } else if (buf.find("S88537CA1") != std::string::npos) {
+            property_set("ro.build.display.wtid", "SW_S88537CA1_V080_M20_MP_XM");
+        } else if (buf.find("S88537EC1") != std::string::npos) {
+            property_set("ro.build.display.wtid", "SW_S88537EC1_V080_M20_MP_XM");
+        }
 
-    if (buf.find("S88537AB1") != std::string::npos) {
-        property_set("ro.product.model", "Redmi 3X");
+        if (buf.find("S88537AB1") != std::string::npos) {
+            property_set("ro.product.model", "Redmi 3X");
+        } else {
+            property_set("ro.product.model", "Redmi 3S");
+        }
+    } else if (is_santoni == 1) {
+        if (buf.find("S88536CA2") != std::string::npos) {
+            property_set("ro.product.model", "Redmi 4");
+        } else {
+            property_set("ro.product.model", "Redmi 4X");
+        }
     } else {
-        property_set("ro.product.model", "Redmi 3S");
+        return;
     }
 }
