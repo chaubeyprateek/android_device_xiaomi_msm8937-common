@@ -26,7 +26,7 @@ DEVICE_PACKAGE_OVERLAYS += \
 include $(DEVICE_PATH)/product/*.mk
 
 # Inherit proprietary files
-$(call inherit-product, vendor/xiaomi/msm8937-common/msm8937-common-vendor.mk)
+#$(call inherit-product, vendor/xiaomi/msm8937-common/msm8937-common-vendor.mk)
 
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)

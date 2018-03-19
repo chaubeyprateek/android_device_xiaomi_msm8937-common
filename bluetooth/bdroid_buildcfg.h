@@ -22,7 +22,7 @@
 
 static inline const char* BtmGetDefaultName()
 {
-    char product_device[PROPERTY_VALUE_MAX];
+    char product_model[PROPERTY_VALUE_MAX];
     property_get("ro.product.model", product_model, "");
 
     if (strstr(product_model, "Redmi 3S"))

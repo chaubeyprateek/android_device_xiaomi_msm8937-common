@@ -2,7 +2,7 @@
 PRODUCT_PACKAGES += \
     fstab.qcom \
     init.qcom.rc \
-    init.target.rc \
+    init.target.common.rc \
     init.qcom.power.rc \
     init.qcom.usb.rc \
     init.recovery.qcom.rc \
@@ -13,3 +13,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     init.qcom.sh
+
+PRODUCT_PACKAGES += \
+    set_baseband.sh

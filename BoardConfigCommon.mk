@@ -21,4 +21,4 @@ DEVICE_PATH := device/xiaomi/msm8937-common
 include $(DEVICE_PATH)/board/*.mk
 
 # Inherit the proprietary files
--include vendor/xiaomi/msm8937-common/BoardConfigVendor.mk
+#-include vendor/xiaomi/msm8937-common/BoardConfigVendor.mk
